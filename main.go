@@ -101,6 +101,7 @@ func main() {
 
 	prometheus.MustRegister(version.NewCollector(name))
 	prometheus.MustRegister(collector.NewClusterMetrics(logger, httpClient, typesenseURL))
+	prometheus.MustRegister(collector.NewAPIStats(logger, httpClient, typesenseURL))
 
 	server := &http.Server{}
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, os.Kill)

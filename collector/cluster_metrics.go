@@ -169,7 +169,7 @@ func (c *ClusterMetrics) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.jsonParseFailures.Desc()
 }
 
-// Collect collects ClusterHealth metrics.
+// Collect collects cluster metrics.
 func (c *ClusterMetrics) Collect(ch chan<- prometheus.Metric) {
 	var err error
 	c.totalScrapes.Inc()
