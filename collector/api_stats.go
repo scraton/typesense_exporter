@@ -211,13 +211,13 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 					[]string{"cluster", "method", "endpoint"},
 					nil,
 				),
-				Value: func(resp apiStatsResponse) ([]labeledValues) {
+				Value: func(resp apiStatsResponse) []labeledValues {
 					ret := make([]labeledValues, 0, len(resp.Latency))
 					for key, val := range resp.Latency {
 						method, endpoint := splitStatKey(key)
 						ret = append(ret, labeledValues{
 							labels: []string{url.String(), method, endpoint},
-							value: float64(val) / 1000.0,
+							value:  float64(val) / 1000.0,
 						})
 					}
 					return ret
@@ -231,13 +231,13 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 					[]string{"cluster", "method", "endpoint"},
 					nil,
 				),
-				Value: func(resp apiStatsResponse) ([]labeledValues) {
+				Value: func(resp apiStatsResponse) []labeledValues {
 					ret := make([]labeledValues, 0, len(resp.RequestsPerSecond))
 					for key, val := range resp.RequestsPerSecond {
 						method, endpoint := splitStatKey(key)
 						ret = append(ret, labeledValues{
 							labels: []string{url.String(), method, endpoint},
-							value: val,
+							value:  val,
 						})
 					}
 					return ret
@@ -294,7 +294,7 @@ func (c *APIStats) Collect(ch chan<- prometheus.Metric) {
 				stat.Desc,
 				stat.Type,
 				v.value,
-				v.labels...
+				v.labels...,
 			)
 		}
 	}

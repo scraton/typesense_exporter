@@ -86,9 +86,7 @@ func main() {
 		"timeout": typesenseTimeout,
 	}).Debugln("initialized")
 
-	var httpTransport http.RoundTripper
-
-	httpTransport = &transportWithAPIKey{
+	httpTransport := &transportWithAPIKey{
 		apiKey: typesenseApiKeyFlag,
 		underlyingTransport: &http.Transport{
 			Proxy: http.ProxyFromEnvironment,
@@ -145,5 +143,7 @@ func main() {
 
 	shutdownCtx, cancelShutdown := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelShutdown()
-	server.Shutdown(shutdownCtx)
+	if err := server.Shutdown(shutdownCtx); err != nil {
+		logger.WithError(err).Errorln("failed to shutdown")
+	}
 }

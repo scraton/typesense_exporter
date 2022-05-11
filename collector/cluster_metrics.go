@@ -18,30 +18,30 @@ var (
 )
 
 type clusterMetric struct {
-	Type prometheus.ValueType
-	Desc *prometheus.Desc
+	Type  prometheus.ValueType
+	Desc  *prometheus.Desc
 	Value func(resp clusterMetricsResponse) float64
 }
 
 type clusterMetricsResponse struct {
-	SystemCPU1ActivePercentage float64 `json:"system_cpu1_active_percentage,string"`
-	SystemCPU2ActivePercentage float64 `json:"system_cpu2_active_percentage,string"`
-	SystemCPU3ActivePercentage float64 `json:"system_cpu3_active_percentage,string"`
-	SystemCPU4ActivePercentage float64 `json:"system_cpu4_active_percentage,string"`
-	SystemCPUActivePercentage float64 `json:"system_cpu_active_percentage,string"`
-	SystemDiskTotalBytes int `json:"system_disk_total_bytes,string"`
-	SystemDiskUsedBytes int `json:"system_disk_used_bytes,string"`
-	SystemMemoryTotalBytes int `json:"system_memory_total_bytes,string"`
-	SystemMemoryUsedBytes int `json:"system_memory_used_bytes,string"`
-	SystemNetworkReceivedBytes int `json:"system_network_received_bytes,string"`
-	SystemNetworkSentBytes int `json:"system_network_sent_bytes,string"`
-	TypesenseMemoryActiveBytes int `json:"typesense_memory_active_bytes,string"`
-	TypesenseMemoryAllocatedBytes int `json:"typesense_memory_allocated_bytes,string"`
+	SystemCPU1ActivePercentage        float64 `json:"system_cpu1_active_percentage,string"`
+	SystemCPU2ActivePercentage        float64 `json:"system_cpu2_active_percentage,string"`
+	SystemCPU3ActivePercentage        float64 `json:"system_cpu3_active_percentage,string"`
+	SystemCPU4ActivePercentage        float64 `json:"system_cpu4_active_percentage,string"`
+	SystemCPUActivePercentage         float64 `json:"system_cpu_active_percentage,string"`
+	SystemDiskTotalBytes              int     `json:"system_disk_total_bytes,string"`
+	SystemDiskUsedBytes               int     `json:"system_disk_used_bytes,string"`
+	SystemMemoryTotalBytes            int     `json:"system_memory_total_bytes,string"`
+	SystemMemoryUsedBytes             int     `json:"system_memory_used_bytes,string"`
+	SystemNetworkReceivedBytes        int     `json:"system_network_received_bytes,string"`
+	SystemNetworkSentBytes            int     `json:"system_network_sent_bytes,string"`
+	TypesenseMemoryActiveBytes        int     `json:"typesense_memory_active_bytes,string"`
+	TypesenseMemoryAllocatedBytes     int     `json:"typesense_memory_allocated_bytes,string"`
 	TypesenseMemoryFragmentationRatio float64 `json:"typesense_memory_fragmentation_ratio,string"`
-	TypesenseMemoryMappedBytes int `json:"typesense_memory_mapped_bytes,string"`
-	TypesenseMemoryMetadataBytes int `json:"typesense_memory_metadata_bytes,string"`
-	TypesenseMemoryResidentBytes int `json:"typesense_memory_resident_bytes,string"`
-	TypesenseMemoryRetainedBytes int `json:"typesense_memory_retained_bytes,string"`
+	TypesenseMemoryMappedBytes        int     `json:"typesense_memory_mapped_bytes,string"`
+	TypesenseMemoryMetadataBytes      int     `json:"typesense_memory_metadata_bytes,string"`
+	TypesenseMemoryResidentBytes      int     `json:"typesense_memory_resident_bytes,string"`
+	TypesenseMemoryRetainedBytes      int     `json:"typesense_memory_retained_bytes,string"`
 }
 
 type ClusterMetrics struct {
@@ -209,7 +209,7 @@ func (c *ClusterMetrics) fetchAndDecodeClusterMetrics() (clusterMetricsResponse,
 	if err != nil {
 		return resp, fmt.Errorf("failed to get cluster metrics from %s: %s", u.String(), err)
 	}
-	defer func(){
+	defer func() {
 		if err := res.Body.Close(); err != nil {
 			c.logger.WithError(err).Warnln("failed to close http.Client")
 		}

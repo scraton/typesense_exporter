@@ -37,11 +37,11 @@ type Collector interface {
 
 type TypesenseCollector struct {
 	Collectors map[string]Collector
-	logger     log.Logger
+	logger     *log.Logger
 }
 
 // NewTypesenseCollector creates a new TypesenseCollector
-func NewTypesenseCollector(logger log.Logger, httpClient *http.Client, typesenseURL *url.URL) (*TypesenseCollector, error) {
+func NewTypesenseCollector(logger *log.Logger, httpClient *http.Client, typesenseURL *url.URL) (*TypesenseCollector, error) {
 	collectors := make(map[string]Collector)
 
 	return &TypesenseCollector{
@@ -70,7 +70,7 @@ func (e TypesenseCollector) Collect(ch chan<- prometheus.Metric) {
 	wg.Wait()
 }
 
-func execute(ctx context.Context, name string, c Collector, ch chan<- prometheus.Metric, logger log.Logger) {
+func execute(ctx context.Context, name string, c Collector, ch chan<- prometheus.Metric, logger *log.Logger) {
 	begin := time.Now()
 	err := c.Update(ctx, ch)
 	duration := time.Since(begin)
