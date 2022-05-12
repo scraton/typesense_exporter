@@ -65,15 +65,15 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 
 		up: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "up"),
-			Help: "Was the last scrape of the Typesense cluster metrics endpoint successful.",
+			Help: "Was the last scrape of the Typesense stats.json endpoint successful",
 		}),
 		totalScrapes: prometheus.NewCounter(prometheus.CounterOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "total_scrapes"),
-			Help: "Current total Typesense cluster metrics scrapes.",
+			Help: "Current total Typesense cluster metrics scrapes",
 		}),
 		jsonParseFailures: prometheus.NewCounter(prometheus.CounterOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "json_parse_failures"),
-			Help: "Number of errors while parsing JSON.",
+			Help: "Number of errors while parsing JSON",
 		}),
 
 		metrics: []*clusterMetric{
@@ -81,7 +81,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_active_bytes"),
-					"",
+					"Total active memory in use by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -92,7 +92,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_allocated_bytes"),
-					"",
+					"Total allocated memory in use by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -103,7 +103,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_fragmentation_ratio"),
-					"",
+					"Fragmentation ratio for Typesense memory",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -114,7 +114,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_mapped_bytes"),
-					"",
+					"Total mapped memory in use by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -125,7 +125,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_metadata_bytes"),
-					"",
+					"Total memory used for metadata by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -136,7 +136,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_resident_bytes"),
-					"",
+					"Total resident memory in use by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {
@@ -147,7 +147,7 @@ func NewClusterMetrics(logger *log.Logger, client *http.Client, url *url.URL) *C
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "memory_retained_bytes"),
-					"",
+					"Total retained memory in use by Typesense",
 					defaultClusterMetricsLabels, nil,
 				),
 				Value: func(resp clusterMetricsResponse) float64 {

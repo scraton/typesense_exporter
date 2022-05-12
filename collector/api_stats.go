@@ -79,15 +79,15 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 
 		up: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "up"),
-			Help: "Was the last scrape of the Typesense API stats endpoint successful.",
+			Help: "Was the last scrape of the Typesense stats.json endpoint successful",
 		}),
 		totalScrapes: prometheus.NewCounter(prometheus.CounterOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "total_scrapes"),
-			Help: "Current total Typesense API stats scrapes.",
+			Help: "Current total Typesense API stats scrapes",
 		}),
 		jsonParseFailures: prometheus.NewCounter(prometheus.CounterOpts{
 			Name: prometheus.BuildFQName(namespace, subsystem, "json_parse_failures"),
-			Help: "Number of errors while parsing JSON.",
+			Help: "Number of errors while parsing JSON",
 		}),
 
 		metrics: []*apiMetric{
@@ -95,7 +95,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "delete_latency_seconds"),
-					"",
+					"Latency for delete requests in seconds",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -106,7 +106,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "delete_requests_per_second"),
-					"",
+					"Requests per second for deletions",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -117,7 +117,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "import_latency_seconds"),
-					"",
+					"Latency for import requests in seconds",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -128,7 +128,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "import_requests_per_second"),
-					"",
+					"Requests per second for imports",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -139,7 +139,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "pending_write_batches"),
-					"",
+					"Pending write batches",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -150,7 +150,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "search_latency_seconds"),
-					"",
+					"Latency for search requests",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -161,7 +161,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "search_requests_per_second"),
-					"",
+					"Requests per second for searches",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -172,7 +172,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "total_requests_per_second"),
-					"",
+					"Requests per second for all endpoints",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -183,7 +183,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "write_latency_seconds"),
-					"",
+					"Latency for write requests",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -194,7 +194,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "write_requests_per_second"),
-					"",
+					"Requets per second for writes",
 					defaultAPIStatsLabels, nil,
 				),
 				Value: func(resp apiStatsResponse) float64 {
@@ -207,7 +207,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "latency_seconds"),
-					"",
+					"Latency for each method and endpoint",
 					[]string{"cluster", "method", "endpoint"},
 					nil,
 				),
@@ -227,7 +227,7 @@ func NewAPIStats(logger *log.Logger, client *http.Client, url *url.URL) *APIStat
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "requests_per_second"),
-					"",
+					"Requests per second for each method and endpoint",
 					[]string{"cluster", "method", "endpoint"},
 					nil,
 				),
