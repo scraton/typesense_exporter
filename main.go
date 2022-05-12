@@ -36,7 +36,7 @@ func main() {
 		telemetryPathFlag    string
 		typesenseURLFlag     string
 		typesenseTimeoutFlag string
-		typesenseApiKeyFlag  string
+		typesenseAPIKeyFlag  string
 		logLevelFlag         string
 	)
 
@@ -45,7 +45,7 @@ func main() {
 	fs.StringVar(&telemetryPathFlag, "telemetry-path", "/metrics", "path under which to expose metrics")
 	fs.StringVar(&typesenseURLFlag, "typesense-url", "http://localhost:8108", "HTTP API address for Typesense node")
 	fs.StringVar(&typesenseTimeoutFlag, "typesense-timeout", "5s", "timeout for trying to get Typesense metrics")
-	fs.StringVar(&typesenseApiKeyFlag, "typesense-api-key", "", "API key for typesense")
+	fs.StringVar(&typesenseAPIKeyFlag, "typesense-api-key", "", "API key for typesense")
 	fs.StringVar(&logLevelFlag, "log-level", "info", "sets log level")
 
 	if err := fs.Parse(os.Args[1:]); err != nil {
@@ -75,7 +75,7 @@ func main() {
 		logger.WithError(err).Fatalf("unable to parse timeout")
 	}
 
-	if typesenseApiKeyFlag == "" {
+	if typesenseAPIKeyFlag == "" {
 		logger.Fatal("no API key provided")
 	}
 
@@ -87,7 +87,7 @@ func main() {
 	}).Debugln("initialized")
 
 	httpTransport := &transportWithAPIKey{
-		apiKey: typesenseApiKeyFlag,
+		apiKey: typesenseAPIKeyFlag,
 		underlyingTransport: &http.Transport{
 			Proxy: http.ProxyFromEnvironment,
 		},
