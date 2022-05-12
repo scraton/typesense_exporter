@@ -1,0 +1,24 @@
+name: Build docker image
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install promu
+        run: make promu
+
+      - name: Build binary
+        run: promu crossbuild
+
+      - name: Build Docker image
+        run: make docker
